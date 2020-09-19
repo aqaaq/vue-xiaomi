@@ -3,8 +3,6 @@
 ### 仿小米商城
 
 
- 
-
 ### 说明
 >  该项目前后端分离，模仿小米官网(不兼容IE)。
 
@@ -15,6 +13,8 @@
 - [在线前端地址](http://ooooo.plus:3005)
  - [在线后台地址](http://ooooo.plus:3005/admin) 
  账号:admin 密码:123
+
+ **新手上路，代码有些粗糙** 。
 ### 页面截图
 ![首页](https://images.gitee.com/uploads/images/2020/0919/121503_a4281112_8069051.png "屏幕截图.png")
 ![商品列表](https://images.gitee.com/uploads/images/2020/0919/121559_9cbda7eb_8069051.png "屏幕截图.png")
