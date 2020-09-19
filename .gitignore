@@ -3,7 +3,6 @@ node_modules
 /dist
 vue.config.js
 /node_modules
-/upload
 img
 test
 # local env files
