@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"xiaomi.orders"}],"uuid":"c3619aee56fb4c32931f50fc4aa0efa2"}
