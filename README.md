@@ -6,7 +6,7 @@
  
 
 ### 说明
->  该项目是一个前后端分离，模仿小米官网(不兼容IE)。
+>  该项目前后端分离，模仿小米官网(不兼容IE)。
 
 >  该项使用了 Node.js(Express) + Vue.js 全家桶 + Mongodb + Axios + Element ui + Sass 。
 
