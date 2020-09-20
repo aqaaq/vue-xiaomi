@@ -20,7 +20,7 @@
 2. cd server
 3. npm install
 4. npm run serve
-5  cd ..
+5. cd ..
 6. cd web
 7. npm install
 8. npm run serve
