@@ -29,7 +29,7 @@
 11. npm install
 12. npm run serve
 
-浏览器打开 lcalhost:8080 localhost:8081
+浏览器打开 localhost:8080 localhost:8081
 ### 页面截图
 ![首页](https://images.gitee.com/uploads/images/2020/0919/121503_a4281112_8069051.png "屏幕截图.png")
 ![商品列表](https://images.gitee.com/uploads/images/2020/0919/121559_9cbda7eb_8069051.png "屏幕截图.png")
