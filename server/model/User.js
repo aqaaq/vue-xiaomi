@@ -6,8 +6,11 @@ const schema = new mongoose.Schema({
         name: String,
         first: String,
         last: String,
-        phone: String
+        phone: String,
+        default:Boolean
     }],
+    avatar:{type:String},
+    wxId:{type:String,select:false},
     //管理员等级
     level: { type: Number, default: 1, max: 5, min: 1 },
 })

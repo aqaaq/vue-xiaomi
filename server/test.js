@@ -1,170 +1,48 @@
 
 const express = require('express');
 const router = express.Router();
-const Category = require('./model/Category');
-const Good = require('./model/Good');
-const Ad = require('./model/Ad');
-const User = require('./model/User');
-const assert = require('http-assert');
-const jwt = require('jsonwebtoken');
-const Cart = require('./model/Cart');
-const Order = require('./model/Order');
-const { find } = require('./model/Category');
+// handler
+const { getNav, getGoods, getAds, getHotGoods, findUser,
+     createUser, findUserById, updateCart, login, addAddress ,
+     createOrder,findOrderByUser,findOrderByid,editOrderPayType,
+     deleteOrder,orderPage,errorHandler} = require('./controller/handle');
 
 module.exports = async app => {
     //header nav接口
-    router.get('/test/:name', async (req, res) => {
-        let num = 24;
-        if (req.params.name === 'header-nav') {
-            num = 8;
-        }
-        const parent = await Category.findOne({ name: req.params.name }) || {};
-        const data = await Category.aggregate([
-            {
-                $match: { parents: parent._id },
-            },
-            {
-                $sort: {
-                    index: 1,
-                }
-            },
-            {
-                $lookup: {
-                    from: 'goods',
-                    localField: '_id',
-                    foreignField: 'categories',
-                    as: 'newList'
-                }
-            },
-            {
-                $addFields: {
-                    newList: {
-                        $slice: ["$newList", num]
-                    }
-                },
-
-            }
-        ])
-        res.send(data)
-    })
+    router.get('/test/:name', getNav)
     //goods详情
-    router.get('/goods/:id', async (req, res) => {
-        const data = await Good.findById(req.params.id);
-        res.send(data);
-    })
+    router.get('/goods/:id', getGoods)
     //根据广告名查询
-    router.get('/ads/:str', async (req, res) => {
-        const name = req.params.str;
-        const data = await Ad.findOne({ name });
-        res.send(data);
-    })
+    router.get('/ads/:str', getAds)
     //小米闪购广告接口
-    router.get('/test', async (req, res) => {
-        const parent = await Category.findOne({ name: '小米闪购' });
-        const data = await Good.find().where({ categories: parent }).lean()
-        // const data = await Good.find({}).where({categories:parent});
-        res.send(data)
-    })
+    router.get('/test', getHotGoods)
     //查询用户是否存在
-    router.get('/name/:name', async (req, res) => {
-        const user = await User.findOne({ username: req.params.name });
-        assert(!user, 422, '改用户名已经注册！');
-    })
+    router.get('/name/:name', findUser)
     //创建用户
-    router.post('/users', async (req, res) => {
-        req.body.level = 1;
-        const data = await User.create(req.body);
-        await Cart.create({ user: data._id, item: [] });
-        res.send(data);
-    })
+    router.post('/users', createUser)
     //查询用户
-    router.get('/users/:id', async (req, res) => {
-        const data = await User.findById(req.params.id);
-        res.send(data);
-    })
+    router.get('/users/:id', findUserById)
     //修改 购物车数据
-    router.put('/cart/:id', async (req, res) => {
-        //    const goods = await Cart.findOneAndUpdate({ user: '5f3e500c9acb0418307f41f5' }, {});
-        const user = await Cart.findOneAndUpdate
-            ({ user: req.params.id }, req.body);
-        const data = await Cart.findOne({ user: req.params.id }).populate({ path: 'item.id' });
-        res.send(data ? data.item : []);
-    })
-    router.post('/login', async (req, res) => {
-        const user = req.body;
-        let data = await User.findOne({ username: user.name }).select('+password');
-        //用户名不存在
-        assert(data, 422, '用户不存在');
-        if (data.password === user.password) {
-            data = await User.findOne({ username: user.name })
-            // 登陆成功
-            // 生成token
-            const token = jwt.sign({ id: data._id }, app.get('private'));
-            // 得到 购物车数据
-            const cartList = await Cart.findOne({ user: data._id }).populate({
-                path: 'item.id'
-            }).lean();
-            res.status(200).send({
-                message: '登录成功！', token,
-                data,
-                cartList: cartList ? cartList.item : []
-            });
-        } else {
-            assert(!1, 422, '用户名或密码错误！');
-        }
-    })
+    router.put('/cart/:id', updateCart)
+    //登录
+    router.post('/login', login)
     //添加用户地址
-    router.post('/adress', async (req, res) => {
-        const data = await User.updateOne({ _id: req.body._id }, {
-            $set: {
-                address: req.body.address,
-            }
-        })
-        const per = await User.findOne({ _id: req.body._id });
-        res.send(per);
-    })
+    router.post('/adress',addAddress)
     //创建订单
-    router.post('/order', async (req, res) => {
-        const data = await Order.create(req.body);
-        res.send(data);
-    })
+    router.post('/order',createOrder)
     //根据user 查询订单
-    router.get('/order/:id', async (req, res) => {
-        // await Order.deleteMany({});
-        const data = await Order.find({ user: req.params.id }).sort('-createdAt');
-        res.send(data);
-    })
+    router.get('/order/:id', findOrderByUser)
     //根据id 查询订单
-    router.get('/orderById/:id', async (req, res) => {
-        const data = await Order.findById(req.params.id)
-        res.send(data);
-    })
+    router.get('/orderById/:id',findOrderByid)
     //付款修改订单状态
-    router.put('/order/:id', async (req, res) => {
-        const data = await Order.findByIdAndUpdate(req.params.id, {
-            $set: req.body
-        })
-        res.send(data);
-    })
-    router.get('/data-test', async (req, res) => {
-        //test
-        const data = await Ad.find();
-        var list = data.map(val => {
-            for (let i = 0; i < val.ads.length; i++) {
-                var object = val.ads[i];
-                object.image = object.image ?
-                    object.image.replace('http://localhost:3000', 'http://47.93.127.194:3005') :
-                    object.image
-            }
-            return val
-        })
-
-        res.send(list);
-    })
+    router.put('/order/:id',editOrderPayType )
+    //删除订单
+    router.delete('/order/:id',deleteOrder)
+    //订单分页
+    router.get('/allOrder/:total', orderPage)
+    // 挂载路由
     app.use('/admin/test', router);
-    app.use((err, req, res, next) => {
-        console.log('test', err)
-        res.status(err.statusCode || 500).send(err);
-    })
+    // 错误函数
+    app.use(errorHandler);
 }
 

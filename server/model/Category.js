@@ -12,6 +12,7 @@ const schema = new mongoose.Schema({
         type: String
     }],
     //摆放顺序
-    index: { type:Number }
+    index: { type:Number },
+    desc:{type:String},
 })
 module.exports = mongoose.model('Category', schema);

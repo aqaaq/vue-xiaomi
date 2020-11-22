@@ -31,6 +31,10 @@ app.set('private', 'abc');
 
 require('./router')(app)
 require('./test')(app);
+
+// 微信小程序路由
+app.use('/wx',require('./wxServer'));
+
 app.listen('3000', () => {
     console.log(' server run loaclhost:3000')
 })
