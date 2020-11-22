@@ -15,6 +15,21 @@
  账号:admin 密码:123
 
  **新手上路，代码有些粗糙** 。
+### 项目运行(需要安装mongodb，先将server文件夹中的 dump数据库 导入本地数据库)。
+1. git clone 
+2. cd server
+3. npm install
+4. npm run serve
+5. cd ..
+6. cd web
+7. npm install
+8. npm run serve
+9. cd ..
+10. cd admin
+11. npm install
+12. npm run serve
+
+浏览器打开 localhost:8080 localhost:8081
 ### 页面截图
 ![首页](https://images.gitee.com/uploads/images/2020/0919/121503_a4281112_8069051.png "屏幕截图.png")
 ![商品列表](https://images.gitee.com/uploads/images/2020/0919/121559_9cbda7eb_8069051.png "屏幕截图.png")
