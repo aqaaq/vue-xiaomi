@@ -1,12 +1,6 @@
 
 const express = require('express');
 const router = express.Router();
-const Category = require('./model/Category');
-const Good = require('./model/Good');
-const User = require('./model/User');
-const assert = require('http-assert');
-
-
 const { restGetById, restGet, restPost, restPut, restDelete ,errorHandler} = require('./controller/rest')
 module.exports = app => {
     router.get('/:id', restGetById)
