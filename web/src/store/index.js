@@ -52,6 +52,9 @@ export default new Vuex.Store({
     setToken(state, str) {
       state.token = str;
     }
+    , deleteGoods(state, index) {
+      state.cartList.splice(index, 1);
+    }
   },
   getters: {
     user(state) {
@@ -60,6 +63,7 @@ export default new Vuex.Store({
       }
       return state.user
     },
+    // 将后端返回的数据稍微改动
     cartList_(state) {
       if (state.cartList) {
         state.check_num = 0;
@@ -96,6 +100,7 @@ export default new Vuex.Store({
         return []
       }
     },
+    // 选中 物品数组
     selectVal(state, getters) {
       var arr = getters.cartList_.filter(currval => {
         if (currval.select) {

@@ -263,6 +263,7 @@ export default {
         that.info = "";
       }
     },
+    // 修改地址
     update(that, key) {
       var str = that.first.split(" ");
       this.val = str[0];

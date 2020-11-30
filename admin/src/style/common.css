@@ -2,3 +2,7 @@ html,body,div,li,ul,p,input,form{
     margin: 0;
     padding: 0;
 }
+
+.ql-container{
+    min-height: 500px;
+}

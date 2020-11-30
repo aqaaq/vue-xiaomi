@@ -3,8 +3,9 @@
     <div class="main">
       <div class="adsorb">
         <div class="goods">
-          <span class="title">{{model.name}}</span>|
-          <span class="name">{{model.name}}</span>
+          <span class="title">{{ model.name }}</span
+          >|
+          <span class="name">{{ model.name }}</span>
         </div>
         <div class="menu">
           <span>概述</span>
@@ -23,10 +24,12 @@
         </div>
         <!-- goods info-->
         <div class="right">
-          <span class="title">{{model.name}}</span>
-          <p class="info">{{model.info}}</p>
+          <span class="title">{{ model.name }}</span>
+          <p class="info">{{ model.info }}</p>
           <p class="paimary-color m-t5">小米自营</p>
-          <p class="paimary-color title">{{currVal.size[active01].price}}元</p>
+          <p class="paimary-color title">
+            {{ currVal.size[active01].price }}元
+          </p>
           <div class="address">
             <i class="iconfont icon-gaopinxiaohui"></i>
             <span>
@@ -41,12 +44,14 @@
           <div class="version">
             <ul class="type-none" v-if="currVal.size[0].name">
               <li
-                :class="{active:active01===key?true:false}"
-                v-for="(item,key) in currVal.size"
+                :class="{ active: active01 === key ? true : false }"
+                v-for="(item, key) in currVal.size"
                 :key="key"
                 v-show="item.name"
                 @click="active01 = key"
-              >{{item.name}}</li>
+              >
+                {{ item.name }}
+              </li>
             </ul>
             <ul v-else class="type-none">
               <li class="active">默认</li>
@@ -56,30 +61,38 @@
           <div class="version" v-if="model.version[0].color">
             <ul class="type-none">
               <li
-                :class="{active:active ===key?true:false}"
-                v-for="(item,key) in model.version"
+                :class="{ active: active === key ? true : false }"
+                v-for="(item, key) in model.version"
                 :key="key"
                 @click="active = key"
-              >{{item.color}}</li>
+              >
+                {{ item.color }}
+              </li>
             </ul>
           </div>
           <div class="address">
             <p class="color-666">
-              {{model.name}} {{currVal.size[active01].name}} {{currVal.color}}
-              <span
-                style="float:right"
-              >{{currVal.size[active01].price}} 元</span>
+              {{ model.name }} {{ currVal.size[active01].name }}
+              {{ currVal.color }}
+              <span style="float:right"
+                >{{ currVal.size[active01].price }} 元</span
+              >
             </p>
-            <p class="price color-primary">总计:{{currVal.size[active01].price}}元</p>
+            <p class="price color-primary">
+              总计:{{ currVal.size[active01].price }}元
+            </p>
           </div>
 
           <div class="btn">
-            <button @click="cartList_push" class="add paimary-color">加入购物车</button>
+            <button @click="cartList_push" class="add paimary-color">
+              加入购物车
+            </button>
             <button class="like">喜欢</button>
           </div>
         </div>
       </div>
     </div>
+    <div class="content" v-html="model.content"></div>
   </div>
 </template>
 <script>
@@ -222,6 +235,8 @@ export default {
 }
 .goods_info {
   margin: 50px auto;
+  margin-bottom: 20px;
+  min-height: 500px;
   width: $max-width * 1px;
   display: flex;
   padding-bottom: 50px;

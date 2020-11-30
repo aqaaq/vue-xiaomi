@@ -5,7 +5,7 @@ const router = express.Router();
 const { getNav, getGoods, getAds, getHotGoods, findUser,
      createUser, findUserById, updateCart, login, addAddress ,
      createOrder,findOrderByUser,findOrderByid,editOrderPayType,
-     deleteOrder,orderPage,errorHandler} = require('./controller/handle');
+     deleteOrder,orderPage,errorHandler,searchHandler} = require('./controller/handle');
 
 module.exports = async app => {
     //header nav接口
@@ -40,8 +40,10 @@ module.exports = async app => {
     router.delete('/order/:id',deleteOrder)
     //订单分页
     router.get('/allOrder/:total', orderPage)
+    // 模糊搜索
+    router.get('/search',searchHandler)
     // 挂载路由
-    app.use('/admin/test', router);
+    app.use('/admin/web', router);
     // 错误函数
     app.use(errorHandler);
 }

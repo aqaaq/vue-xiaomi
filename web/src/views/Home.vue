@@ -3,7 +3,7 @@
     <div class="bg-black">
       <div class="top_sliderbar">
         <ul>
-          <li>小米商城</li>
+          <li class="first">小米商城</li>
           <span>|</span>
           <li>MIUI</li>
           <span>|</span>
@@ -12,43 +12,55 @@
           <li class="down">下载app</li>
         </ul>
         <ul>
-          <router-link tag="li" to="/login" v-if="!$store.getters.user">登录</router-link>
+          <router-link tag="li" to="/login" v-if="!$store.getters.user"
+            >登录</router-link
+          >
           <li v-else class="user">
-            {{$store.getters.user.username}}
+            {{ $store.getters.user.username }}
             <i class="iconfont icon-you"></i>
             <div class="user_children tran">
               <router-link to="/home/order" tag="div">我的订单</router-link>
               <div @click="exit">退出登录</div>
             </div>
           </li>
-          <router-link tag="li" v-show="!$store.getters.user" to="/register">注册</router-link>
+          <router-link tag="li" v-show="!$store.getters.user" to="/register"
+            >注册</router-link
+          >
           <li>消息通知</li>
-          <li :class="{cart:true,bg:cart.length > 0}" @mousemove="move" @mouseout="out">
+          <li
+            :class="{ cart: true, bg: cart.length > 0 }"
+            @mousemove="move"
+            @mouseout="out"
+          >
             <i class="iconfont icon-gouwuche"></i>购物车
             <div class="cart_children" ref="cart">
               <div ref="box">
-                <div class="empty" v-show="cart.length ==0">
+                <div class="empty" v-show="cart.length == 0">
                   <p>购物车还没有商品，赶紧选购吧!</p>
                 </div>
                 <div class="goods" v-show="cart.length > 0">
                   <router-link
                     tag="div"
-                    :to="'/home/details/'+item.id"
+                    :to="'/home/details/' + item.id"
                     class="goods_item"
-                    v-for="(item,key) in cart"
+                    v-for="(item, key) in cart"
                     :key="key"
                   >
                     <img :src="item.icon" />
-                    <p class="name">{{item.name}} {{item.color}} {{item.size}}</p>
-                    <p class="price">{{item.price}} 元 * {{item.num}}</p>
+                    <p class="name">
+                      {{ item.name }} {{ item.color }} {{ item.size }}
+                    </p>
+                    <p class="price">{{ item.price }} 元 * {{ item.num }}</p>
                   </router-link>
 
                   <div class="goods_footer">
                     <div class="left">
-                      <p>共 {{$store.state.count}} 件商品</p>
-                      <p class="price">{{$store.state.price}}元</p>
+                      <p>共 {{ $store.state.count }} 件商品</p>
+                      <p class="price">{{ $store.state.price }}元</p>
                     </div>
-                    <router-link to="/mi/cart" tag="button" class="btn">去购物车结算</router-link>
+                    <router-link to="/mi/cart" tag="button" class="btn"
+                      >去购物车结算</router-link
+                    >
                   </div>
                 </div>
               </div>
@@ -59,8 +71,8 @@
     </div>
     <!-- 顶边栏 end-->
     <Header :model="model" />
-    <keep-alive :exclude="['Details','Order','OrderInfo']">
-      <router-view />
+    <keep-alive :exclude="['Details', 'Order', 'OrderInfo']">
+      <router-view :key="$route.path" />
     </keep-alive>
     <div class="footer">
       <Footer />
@@ -101,6 +113,7 @@ export default {
   },
   created() {
     this.fetch();
+    window.confirm("该网站纯属个人练习！");
   },
   computed: {
     cart() {
@@ -142,11 +155,13 @@ export default {
     li {
       height: 100%;
       padding: 15px 30px;
-
       &:hover {
         color: rgb(231, 224, 224);
         cursor: pointer;
       }
+    }
+    .first{
+      padding-left: 0 !important;
     }
     & last-child {
       border: 0;
@@ -239,7 +254,7 @@ export default {
     background: white;
     & > img {
       width: 60px;
-      height: 60px;
+      height: auto;
       margin-right: 10px;
     }
     & > .name {
@@ -264,9 +279,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   & .left {
-    width: 80px;
+    width: 180px;
     font-size: 12px;
     font-weight: 200;
+    text-align: left;
   }
   & .price {
     font-size: 18px;

@@ -144,9 +144,26 @@ module.exports = {
         const result = await Order.find({}).sort({ _id: -1 }).limit(10).skip(req.params.total * 10);
         res.send({ result, length: len.length });
     },
+    async searchHandler(req, res) {
+        // 关键词 和 分类名称
+        const keywords = req.query.keywords;
+        let list01 = [], list02 = [];
+        list01 = await Good.find({
+            name: new RegExp(`${keywords}`, 'i'),
+        }),
+            category = await Category.findOne({
+                name: keywords
+            });
+        if (category) {
+            list02 = await Good.find({}).where({
+                categories: category._id
+            });
+            list01 = list01.concat(list02);
+        }
+        res.send(list01)
+    },
     errorHandler(err, req, res, next) {
         console.log('test', err)
         res.status(err.statusCode || 500).send(err);
     }
-
 }

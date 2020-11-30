@@ -154,15 +154,13 @@ export default {
     this.fetch();
   },
   activated() {
-    console.log("activated");
     if (!this.$store.getters.user) {
       this.$router.replace("/home/display");
     }
     this.fetch();
   },
   destroyed() {
-    console.log('destroyed!')
-    document.documentElement.scrollTop = 0;
+    // document.documentElement.scrollTop = 0;
   },
 };
 </script>

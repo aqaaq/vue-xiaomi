@@ -5,15 +5,14 @@
         <li v-for="(item,key) in CategoryList" :key="key">
           {{item.name}}
           <i class="iconfont icon-you"></i>
-          <div class="children-list">
-            <ul :style="{width:25 * Math.ceil(item.newList.length/6)+'%'}">
+          <div class="children-list" :style="{width:25 * Math.ceil(item.newList.length/6)+'%'}">
+            <ul>
               <router-link
                 tag="li"
                 :to="`/home/details/${item01._id}`"
                 class="item"
                 v-for="(item01,key01) in item.newList"
-                :key="key01"
-              >
+                :key="key01">
                 <div class="img_box">
                   <img v-lazy="item01.icon" />
                 </div>
@@ -25,7 +24,7 @@
       </ul>
     </div>
     <div class="box_right">
-      <swiper :imgList="imgList" :open="true" :timeout="4000" />
+      <swiper :imgList="imgList" :open="true" :timeout="4000" :left="235" />
     </div>
   </div>
 </template>

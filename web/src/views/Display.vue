@@ -15,12 +15,12 @@
           <Card title="小米闪购" :Data="saleGoods" />
           <!-- 小米闪购 -->
           <div>
-            <Box title="手机" :imgList="saleGoods">
+            <Box title="手机" :imgList="saleGoods" keywords="小米闪购">
               <template slot="logo">
                 <router-link
                   tag="img"
                   :to="item.url"
-                  v-for="(item,key) in long_logo01.ads"
+                  v-for="(item, key) in long_logo01.ads"
                   :key="key"
                   v-lazy="item.image"
                 ></router-link>
@@ -29,7 +29,7 @@
                 <router-link
                   tag="img"
                   :to="item.url"
-                  v-for="(item,key) in phonead.ads"
+                  v-for="(item, key) in phonead.ads"
                   :key="key"
                   v-lazy="item.image"
                 ></router-link>
@@ -42,14 +42,23 @@
               <router-link
                 tag="img"
                 :to="item.url"
-                v-for="(item,key) in long_logo02.ads"
+                v-for="(item, key) in long_logo02.ads"
                 :key="key"
                 v-lazy="item.image"
+                style="curson: pointer"
               ></router-link>
             </template>
             <template slot="left">
-              <div class="box_shadow _box" v-for="(item,key) in jiadian.ads" :key="key">
-                <router-link tag="img" :to="item.url" v-lazy="item.image"></router-link>
+              <div
+                class="box_shadow _box"
+                v-for="(item, key) in jiadian.ads"
+                :key="key"
+              >
+                <router-link
+                  tag="img"
+                  :to="item.url"
+                  v-lazy="item.image"
+                ></router-link>
               </div>
             </template>
           </Grid>
@@ -60,14 +69,23 @@
               <router-link
                 tag="img"
                 :to="item.url"
-                v-for="(item,key) in long_logo03.ads"
+                v-for="(item, key) in long_logo03.ads"
                 :key="key"
                 v-lazy="item.image"
+                style="cursor: pointer"
               ></router-link>
             </template>
             <template slot="left">
-              <div class="box_shadow _box" v-for="(item,key) in zhineng.ads" :key="key">
-                <router-link tag="img" :to="item.url" v-lazy="item.image"></router-link>
+              <div
+                class="box_shadow _box"
+                v-for="(item, key) in zhineng.ads"
+                :key="key"
+              >
+                <router-link
+                  tag="img"
+                  :to="item.url"
+                  v-lazy="item.image"
+                ></router-link>
               </div>
             </template>
           </Grid>
@@ -99,7 +117,9 @@
           <p>人工客服</p>
         </li>
         <router-link to="/mi/cart" tag="li" class="cart_icon">
-          <span class="cart_num" v-show="$store.state.count > 0">{{$store.state.count}}</span>
+          <span class="cart_num" v-show="$store.state.count > 0">{{
+            $store.state.count
+          }}</span>
           <img class="static" src="../assets/icon005.png" />
           <img class="hover" src="../assets/icon05.png" />
           <p>购物车</p>
@@ -165,37 +185,59 @@ export default {
     scrollEvent() {
       if (this.timer) {
         return;
-        // clearTimeout(that.timer);
-        // that.timer = setTimeout(that.scrollTo, 20);
+        // clearTimeout(this.timer);
+        // this.timer = setTimeout(this.scrollTo, 50);
       } else {
-        this.timer = setTimeout(this.scrollTo, 100);
+        this.timer = setTimeout(this.scrollTo, 50);
       }
     },
     async fetch() {
       //home-ad
-      this.homead = await this.$http.get("ads/home-ad");
-      //swiper ad
-      var data = await this.$http("ads/swiper-ad");
-      this.swiperList = data.ads;
+      this.$http.get("ads/home-ad").then((data) => {
+        this.homead = data;
+      });
+      this.$http("ads/swiper-ad").then((data) => {
+        this.swiperList = data.ads;
+      });
       //body-left
-      this.CategoryList = await this.$http.get("test/CategoryList");
+      this.$http.get("test/CategoryList").then((data) => {
+        this.CategoryList = data;
+      });
       //小米闪购
-      this.saleGoods = await this.$http.get("test");
+      this.$http.get("test").then((data) => {
+        this.saleGoods = data;
+      });
 
       //家电
-      this.Jiadian = await this.$http.get("test/Jiadian");
+      this.$http.get("test/Jiadian").then((data) => {
+        this.Jiadian = data;
+      });
       // 家电logo
-      this.jiadian = await this.$http.get("ads/jiadian");
+      this.$http.get("ads/jiadian").then((data) => {
+        this.jiadian = data;
+      });
       //智能logo
-      this.zhineng = await this.$http.get("ads/zhineng");
+      this.$http.get("ads/zhineng").then((data) => {
+        this.zhineng = data;
+      });
       //智能
-      this.Zhineng = await this.$http.get("test/zhineng");
+      this.$http.get("test/zhineng").then((data) => {
+        this.Zhineng = data;
+      });
       //手机
-      this.phonead = await this.$http.get("ads/phone-ad");
+      this.$http.get("ads/phone-ad").then((data) => {
+        this.phonead = data;
+      });
       //long-logo
-      this.long_logo01 = await this.$http.get("ads/long_logo01");
-      this.long_logo02 = await this.$http.get("ads/long_logo02");
-      this.long_logo03 = await this.$http.get("ads/long_logo03");
+      this.$http.get("ads/long_logo01").then((data) => {
+        this.long_logo01 = data;
+      });
+      this.$http.get("ads/long_logo02").then((data) => {
+        this.long_logo02 = data;
+      });
+      this.$http.get("ads/long_logo03").then((data) => {
+        this.long_logo03 = data;
+      });
     },
   },
   created() {

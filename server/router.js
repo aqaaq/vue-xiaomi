@@ -1,7 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { restGetById, restGet, restPost, restPut, restDelete ,errorHandler} = require('./controller/rest')
+const { restGetById, restGet, restPost, restPut, restDelete, errorHandler } = require('./controller/rest')
 module.exports = app => {
     router.get('/:id', restGetById)
     //查询
@@ -12,17 +12,19 @@ module.exports = app => {
     router.put('/:id', restPut)
     //删除
     router.delete('/:id', restDelete)
-    //上传文件
-    const multer = require('multer');
-    const upload = multer({
-        dest: __dirname + '/upload'
-    })
+
     //公共接口  :resourse   动态匹配model
     //lnflection 将 resourse 转化 为类名
     //判断 token 令牌 是否 存在
     app.use('/admin/rest/:resource', require('./middleware/inflection'),
         require('./middleware/judgement')(app), router);
 
+
+    //上传文件
+    const multer = require('multer');
+    const upload = multer({
+        dest: __dirname + '/upload'
+    })
     // 上传图片
     app.post('/admin/upload', upload.single('file'), async (req, res) => {
         const url = app.get('baseURL');

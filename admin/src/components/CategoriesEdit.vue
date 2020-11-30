@@ -25,6 +25,9 @@
           <el-button type="text" @click="model.sizes.splice(key,1)">删除</el-button>
         </div>
       </el-form-item>
+      <el-form-item label="分类描述">
+        <el-input type="text" v-model="model.desc"></el-input>
+      </el-form-item>
       <el-form-item label="排列顺序">
         <el-input type="text" v-model="model.index"></el-input>
       </el-form-item>

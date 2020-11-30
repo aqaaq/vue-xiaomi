@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1>{{id?'编辑':'新建'}}物品</h1>
+    <h1>{{ id ? "编辑" : "新建" }}物品</h1>
     <el-form @submit.native.prevent="save" label-width="150px">
-      <el-tabs type="border-card">
+      <el-tabs type="border-card" style="min-width: 800px">
         <el-tab-pane label="用户管理">
           <el-form-item label="上级分类">
             <el-select v-model="model.categories" placeholder="请选择" multiple>
               <el-option
-                v-for="(item,index) in parents"
+                v-for="(item, index) in parents"
                 :key="index"
                 :value="item._id"
                 :label="item.name"
@@ -15,11 +15,15 @@
             </el-select>
           </el-form-item>
           <el-form-item label="物品名称">
-            <el-input type="text" placeholder="请输入内容" v-model="model.name"></el-input>
+            <el-input
+              type="text"
+              placeholder="请输入内容"
+              v-model="model.name"
+            ></el-input>
           </el-form-item>
           <el-form-item label="上传头像">
             <el-upload
-              :action="backend"
+              :action="$backend"
               list-type="picture-card"
               :auto-upload="true"
               :on-success="success"
@@ -28,26 +32,49 @@
             </el-upload>
           </el-form-item>
           <el-form-item label="当前头像" v-if="model.icon">
-            <img :src="model.icon" style="width:200px;" />
+            <img :src="model.icon" style="width: 200px" />
           </el-form-item>
           <el-form-item label="物品详情">
-            <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="model.info"></el-input>
+            <el-input
+              type="textarea"
+              :rows="4"
+              placeholder="请输入内容"
+              v-model="model.info"
+            ></el-input>
           </el-form-item>
           <el-form-item label="物品介绍">
-            <el-input type="text" placeholder="请输入内容" v-model="model.desc"></el-input>
+            <el-input
+              type="text"
+              placeholder="请输入内容"
+              v-model="model.desc"
+            ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" native-type="submit">添加物品</el-button>
+            <el-button type="primary" native-type="submit">{{
+              id ? "保存" : "添加物品"
+            }}</el-button>
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="配置管理">
           <el-form-item>
-            <el-button type="primary" @click="model.version.push({image:[],size:[]})">添加型号</el-button>
+            <el-button
+              type="primary"
+              @click="model.version.push({ image: [], size: [] })"
+              >添加型号</el-button
+            >
           </el-form-item>
-          <el-row type="flex" v-for="(item,index) in model.version" :key="index">
+          <el-row
+            type="flex"
+            v-for="(item, index) in model.version"
+            :key="index"
+          >
             <el-col>
               <el-form-item label="物品颜色">
-                <el-input type="text" placeholder="请输入内容" v-model="item.color"></el-input>
+                <el-input
+                  type="text"
+                  placeholder="请输入内容"
+                  v-model="item.color"
+                ></el-input>
               </el-form-item>
               <el-form-item label="上传图片">
                 <el-upload
@@ -62,8 +89,8 @@
               <el-form-item label="图片">
                 <div
                   class="boxx"
-                  @click="item.image.splice(index03,1)"
-                  v-for="(item03,index03) in item.image"
+                  @click="item.image.splice(index03, 1)"
+                  v-for="(item03, index03) in item.image"
                   :key="index03"
                 >
                   <img class="img" :src="item03" alt />
@@ -73,14 +100,26 @@
                 </div>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="item.size.push({})">添加规格(例如 8G + 256G)</el-button>
+                <el-button type="primary" @click="item.size.push({})"
+                  >添加规格(例如 8G + 256G)</el-button
+                >
+                <el-button
+                  type="danger"
+                  @click="model.version.splice(index, 1)"
+                >
+                  删除
+                </el-button>
               </el-form-item>
-              <div style="display:flex;flex-wrap:wrap;margin-bottom: 30px;">
-                <div class="box" v-for="(item01,key01) in item.size" :key="key01">
+              <div class="box_container">
+                <div
+                  class="box"
+                  v-for="(item01, key01) in item.size"
+                  :key="key01"
+                >
                   <el-form-item label="规格">
                     <el-select v-model="item01.name" placeholder="请选择">
                       <el-option
-                        v-for="(item02,key02) in currSize"
+                        v-for="(item02, key02) in currSize"
                         :key="key02"
                         :label="item02"
                         :value="item02"
@@ -88,24 +127,43 @@
                     </el-select>
                   </el-form-item>
                   <el-form-item label="价格">
-                    <el-input type="text" placeholder="请输入内容" v-model="item01.price"></el-input>
+                    <el-input
+                      type="text"
+                      placeholder="请输入内容"
+                      v-model="item01.price"
+                    ></el-input>
                   </el-form-item>
                   <el-form-item label="库存">
-                    <el-input type="text" placeholder="请输入内容" v-model="item01.repertory"></el-input>
+                    <el-input
+                      type="text"
+                      placeholder="请输入内容"
+                      v-model="item01.repertory"
+                    ></el-input>
                   </el-form-item>
                   <el-form-item>
-                    <el-button type="text" @click="item.size.splice(key01,1)">删除</el-button>
+                    <el-button type="text" @click="item.size.splice(key01, 1)"
+                      >删除</el-button
+                    >
                   </el-form-item>
                 </div>
               </div>
             </el-col>
           </el-row>
         </el-tab-pane>
+        <el-tab-pane label="物品详情">
+          <vue-editor
+            v-model="model.content"
+            useCustomImageHandler
+            @image-added="handleImageAdded"
+          ></vue-editor>
+        </el-tab-pane>
       </el-tabs>
     </el-form>
   </div>
 </template>
 <script>
+import { VueEditor } from "vue2-editor";
+
 export default {
   props: {
     id: { type: String },
@@ -118,6 +176,7 @@ export default {
         icon: "",
         version: [],
         categories: [],
+        content: "",
       },
       dialogImageUrl: "",
       dialogVisible: false,
@@ -164,6 +223,16 @@ export default {
         item.image.push(file.response);
       };
     },
+    async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      var formData = new FormData();
+      formData.append("file", file);
+      const res = await this.$http.post(this.$backend, formData);
+      if (res) {
+        let url = res; // Get url from response
+        Editor.insertEmbed(cursorLocation, "image", url);
+        resetUploader();
+      }
+    },
   },
   computed: {
     currSize() {
@@ -186,11 +255,22 @@ export default {
     this.id && this.fetch();
     this.fetchParents();
   },
+  components: {
+    VueEditor,
+  },
 };
 </script>
 <style scoped>
+.box_container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  justify-content: space-between;
+}
+
 .box {
-  width: 600px;
+  width: 49%;
+  box-sizing: border-box;
   padding: 40px 0;
   padding-right: 20px;
   border: 1px solid #ccc;
@@ -227,7 +307,8 @@ export default {
 .boxx > span > i {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%,-50%);
   color: white;
   font-size: 20px;
   z-index: 20;

@@ -5,40 +5,53 @@
       <!-- logo -->
       <div class="header_logo">
         <div class="logo">
-          <router-link tag="div" to="/home/display" class="logo-home"></router-link>
+          <router-link
+            tag="div"
+            to="/home/display"
+            class="logo-home"
+          ></router-link>
         </div>
-        <img v-if="$route.path==='/home/display'" src="../assets/logo.gif" />
+        <img v-if="$route.path === '/home/display'" src="../assets/logo.gif" />
       </div>
       <!-- tarbar -->
       <slot name="tarbar">
         <div class="tarbar">
           <ul class="type-none nav header-nav">
-            <li v-for="(item,key) in model" :key="key">
-              {{item.name}}
-              <div class="header-nav-children">
-                <div class="container">
-                  <!-- {{model}} -->
-                  <router-link
-                    tag="div"
-                    :to="`/home/details/${item01._id}`"
-                    v-for="(item01,index02) in item.newList"
-                    :key="index02"
-                  >
-                    <img v-lazy="item01.icon" />
-                    <p class="name">{{item01.name}}</p>
-                    <p class="price">{{item01.version[0].size[0].price}}元</p>
-                  </router-link>
-                </div>
-              </div>
+            <li
+              v-for="(item, key) in model"
+              :key="key"
+              @mouseover="chageTabbarChildren(item)"
+            >
+              {{ item.name }}
             </li>
             <li>服务</li>
             <li>社区</li>
+            <div class="header-nav-children">
+              <div class="container">
+                <!-- {{model}} -->
+                <router-link
+                  tag="div"
+                  :to="`/home/details/${item01._id}`"
+                  v-for="(item01, index02) in tabbarChildren.newList"
+                  :key="index02"
+                >
+                  <img v-lazy="item01.icon" />
+                  <p class="name">{{ item01.name }}</p>
+                  <p class="price">{{ item01.version[0].size[0].price }}元</p>
+                </router-link>
+              </div>
+            </div>
           </ul>
         </div>
         <!-- input -->
         <div class="header_inout">
-          <input type="text" />
-          <button>
+          <input
+            type="text"
+            @keyup.enter="sreach"
+            placeholder="手机"
+            v-model="keywords"
+          />
+          <button @click="sreach">
             <i class="iconfont icon-search"></i>
           </button>
         </div>
@@ -53,7 +66,19 @@ export default {
     model: { type: Array },
   },
   data() {
-    return {};
+    return {
+      tabbarChildren: {},
+      keywords: "",
+    };
+  },
+  methods: {
+    chageTabbarChildren(item) {
+      this.tabbarChildren = item;
+      console.log(this.tabbarChildren);
+    },
+    async sreach() {
+      this.$router.push("/home/all/goods?keywords=" + this.keywords.trim());
+    },
   },
 };
 </script>
@@ -132,18 +157,24 @@ export default {
   & > li {
     font-size: 16px;
     line-height: 110px;
-
+    flex-grow: 1;
+    text-align: center;
     &:hover {
       cursor: pointer;
       color: $paimary-color;
     }
-    &:hover > .header-nav-children {
+    &:hover ~ .header-nav-children {
       height: 215px;
       border: 1px solid #ccc;
       border-bottom: none;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-      transition-delay: box-shadow 0.5s;
     }
+  }
+  .header-nav-children:hover {
+    height: 215px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
   }
 }
 .header_inout {
@@ -151,11 +182,12 @@ export default {
   margin-left: 30px;
   input {
     height: 48px;
+    line-height: 48px;
     width: 223px;
     border: 1px solid #ccc;
-    font-size: 14px;
+    font-size: 16px;
     outline: none;
-    text-indent: 5px;
+    text-indent: 20px;
   }
   input:focus {
     border: 1px solid $paimary-color;
@@ -183,8 +215,7 @@ export default {
   background: white;
   height: 0;
   overflow: hidden;
-  transition: height 0.4s;
-
+  transition: height 0.3s linear, box-shadow 0.2s linear 0.3s;
   & .container {
     display: flex;
     width: $max-width * 1px;
@@ -217,6 +248,7 @@ export default {
         right: 0;
         top: 25px;
         background: #ccc;
+        transform: scaleX(0.5);
       }
       &:last-child::after {
         width: 0;

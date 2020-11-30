@@ -9,15 +9,28 @@
           <p class="title">您的购物车还是空的！</p>
           <p>登录后将显示您之前加入的商品</p>
           <div class="btn">
-            <router-link to="/login" tag="button" class="add paimary-color" v-show="!user">立即登录</router-link>
-            <router-link to="/home/display" tag="button" class="like">马上去购物</router-link>
+            <router-link
+              to="/login"
+              tag="button"
+              class="add paimary-color"
+              v-show="!user"
+              >立即登录</router-link
+            >
+            <router-link to="/home/display" tag="button" class="like"
+              >马上去购物</router-link
+            >
           </div>
         </div>
       </div>
       <div v-else class="cart-noempty">
         <div class="table_header border-bootom">
           <span class="pl">
-            <input class="checkbox" type="checkbox" @change="allSelect" :checked="all_" />全选
+            <input
+              class="checkbox"
+              type="checkbox"
+              @change="allSelect"
+              :checked="all_"
+            />全选
           </span>
           <span class="pl">货品名称</span>
           <span class="pl">单价</span>
@@ -25,28 +38,44 @@
           <span class="pl">小计</span>
           <span class="pl">操作</span>
         </div>
-        <div class="table_header _goods" v-for="(i,key) in list" :key="key">
+        <div class="table_header _goods" v-for="(i, key) in list" :key="key">
           <span class="pl">
-            <input class="checkbox" v-model="i.select" type="checkbox" @change="changeCheck(key)" />
+            <input
+              class="checkbox"
+              v-model="i.select"
+              type="checkbox"
+              @change="changeCheck(key)"
+            />
             <label class="chose"></label>
           </span>
           <span class="box">
             <div class="img_box">
-            <img class="goods_jpg" :src="i.icon" />
+              <img class="goods_jpg" :src="i.icon" />
             </div>
-            <span class="name">{{ i.name}}</span>
+            <span class="name">{{ i.name }}</span>
             &nbsp;
-            <span>{{i.size}}</span>
-            <span>{{i.color}}</span>
+            <span>{{ i.size }}</span>
+            <span>{{ i.color }}</span>
           </span>
-          <span class="pl">{{i.price}}元</span>
+          <span class="pl">{{ i.price }}元</span>
           <span>
-            <el-input-number v-model="i.num" :min="1" :max="10" @change="change(key)"></el-input-number>
+            <el-input-number
+              v-model="i.num"
+              :min="1"
+              :max="10"
+              @change="change(key)"
+            ></el-input-number>
           </span>
-          <span class="pl paimary-color">{{i.price_}}元</span>
+          <span class="pl paimary-color">{{ i.price_ }}元</span>
           <span class="pl line-height0">
-            <span class="close" @click="removeKey = key;isShow=!isShow">
-              {{key}}
+            <span
+              class="close"
+              @click="
+                removeKey = key;
+                isShow = !isShow;
+              "
+            >
+              {{ key }}
               <i class="iconfont icon-closesearch"></i>
             </span>
           </span>
@@ -56,13 +85,13 @@
             <span class="goon">继续购物</span> |
             <span class="aaa">
               共
-              <span>{{$store.state.count}}</span> 件物品,已选择
-              <span>{{$store.state.check_num}}</span> 件
+              <span>{{ $store.state.count }}</span> 件物品,已选择
+              <span>{{ $store.state.check_num }}</span> 件
             </span>
           </div>
           <div class="paimary-color ds-flex">
             <span>合计：</span>
-            <span class="price">{{$store.state.price}}元</span>
+            <span class="price">{{ $store.state.price }}元</span>
             <button @click="check" class="buy paimary-color">去结算</button>
           </div>
         </div>
@@ -82,7 +111,7 @@
 </template>
 <script>
 export default {
-  name:'Cart',
+  name: "Cart",
   data() {
     return {
       //删除弹框
@@ -95,26 +124,27 @@ export default {
     };
   },
   methods: {
-    //根据 传入 falg判断 确认 或取消
+    // 根据传入falg判断用户确认或取消
     async res(falg) {
       this.isShow = false;
       if (falg) {
-        //改变state 数据, 偷个懒 ，最好在 mutations中去修改数据
-        this.$store.state.cartList.splice(this.removeKey, 1);
-        this.Put().then(
-          (data) => {
-            //后端同步数据
-            this.edit(data);
-          },
-          () => {
-            this.$message.error("err");
-          }
-        );
+        //改变state 数据, mutations中去修改数据
+        this.$store.commit("deleteGoods", this.removeKey);
+        const res = await this.Put();
+        if (res) {
+          this.edit(res);
+        } else {
+          this.$message.error("err");
+        }
       }
     },
     Put() {
       var id = this.$store.getters.user._id;
-      return this.$http.put("/cart/" + id, { item: this.cartList });
+      return this.$http.put(
+        "/cart/" + id,
+        { item: this.cartList },
+        { headers: { noLoading: true } }
+      );
     },
     //更新store 数据
     async fetch() {
@@ -142,7 +172,7 @@ export default {
         this.all = false;
       }
       for (let i = 0; i < this.list.length; i++) {
-        this.list[i].select = this.all;
+        // this.list[i].select = this.all;
         this.cartList[i].select = this.all;
       }
       this.Put();
@@ -170,7 +200,6 @@ export default {
     },
   },
   created() {
-    console.log('Cart')
     if (!this.user) {
       return;
     }
@@ -314,7 +343,7 @@ export default {
     display: grid;
     grid-template-rows: 100px;
     line-height: 100px;
-    & .img_box{
+    & .img_box {
       height: 80px;
       text-align: center;
       min-width: 120px;

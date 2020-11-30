@@ -1,36 +1,40 @@
 <template>
   <div class="main">
     <div class="logo_box">
-      <slot name="logo">
-      </slot>
+      <slot name="logo"> </slot>
     </div>
     <!-- 长条logo -->
     <div class="header">
-      <span class="title">{{title}}</span>
-      <span class="more">
+      <span class="title">{{ title }}</span>
+      <router-link
+        tag="span"
+        :to="'all/goods?keywords=' + keywords"
+        class="more"
+      >
         查看更多
         <i class="iconfont icon-ArrowCircleRight"></i>
-      </span>
+      </router-link>
     </div>
     <div class="container">
       <div class="left">
-        <slot name="left">
-        
-        </slot>
+        <slot name="left"> </slot>
       </div>
       <div class="right">
         <router-link
           tag="div"
-          :to="'/home/details/'+item._id"
+          :to="'/home/details/' + item._id"
           class="right_box"
-          v-for="(item,index) in ImgList"
+          v-for="(item, index) in ImgList"
           :key="index"
         >
-          <div class="item box_shadow" :style="{'border-top':'2px solid'+getColor(index) }">
+          <div
+            class="item box_shadow"
+            :style="{ 'border-top': '2px solid' + getColor(index) }"
+          >
             <img v-lazy="item.icon" />
-            <p class="name over">{{item.name}}</p>
-            <p class="desc over">{{item.desc}}</p>
-            <p class="price">{{item.version[0].size[0].price}}元</p>
+            <p class="name over">{{ item.name }}</p>
+            <p class="desc over">{{ item.desc }}</p>
+            <p class="price">{{ item.version[0].size[0].price }}元</p>
           </div>
         </router-link>
       </div>
@@ -42,6 +46,7 @@ export default {
   props: {
     title: { type: String },
     imgList: { type: Array },
+    keywords: { type: String },
   },
   data() {
     return {
@@ -60,7 +65,7 @@ export default {
   methods: {
     getColor(index) {
       return this.colorList[index % 8];
-    }
+    },
   },
   computed: {
     ImgList() {
@@ -95,6 +100,7 @@ export default {
   & .more {
     font-size: 20px;
     font-weight: 200;
+    cursor: pointer;
     .iconfont {
       color: #ccc;
       font-size: 20px;

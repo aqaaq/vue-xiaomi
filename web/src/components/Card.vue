@@ -131,7 +131,7 @@ export default {
 }
 .main_box {
   display: flex;
-  padding-bottom: 10px;
+  padding-bottom: 40px;
 }
 
 ._box {
@@ -141,9 +141,10 @@ export default {
   background: white;
   font-size: 20px;
   color: #666;
+  cursor: pointer;
 }
 .box-left {
-  padding-top: 10px;
+  padding-top: 40px;
   background: #f1eded;
   h4 {
     font-size: 25px;
@@ -209,6 +210,7 @@ export default {
   background: white;
   height: 100%;
   padding: 15px 0;
+  cursor: pointer;
 }
 .right_box {
   width: 25%;

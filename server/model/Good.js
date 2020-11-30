@@ -23,6 +23,7 @@ const schema = new mongoose.Schema({
             }
         ]
     }],
-    desc: { type: String }
+    desc: { type: String },
+    content:{type:String}
 })
 module.exports = mongoose.model('Good', schema)

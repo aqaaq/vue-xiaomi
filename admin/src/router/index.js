@@ -11,6 +11,8 @@ const AdList = () => import('../components/AdList.vue');
 const UserEdit = () => import('../components/UserEdit.vue');
 const UserList = () => import('../components/UserList.vue');
 const Login = () => import('../components/Login.vue');
+const OrderList = ()=>import('../components/OrderList.vue');
+const OrderEdit = ()=>import('../components/OrderEdit.vue');
 Vue.use(VueRouter)
 
 const routes = [
@@ -74,6 +76,14 @@ const routes = [
       {
         path: 'users/list',
         component: UserList,
+      },
+      {
+        path:"orders/list",
+        component:OrderList
+      },
+      {
+        path:"orders/edit",
+        component:OrderEdit
       }
     ]
   },

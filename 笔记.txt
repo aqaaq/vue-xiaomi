@@ -1,0 +1,7 @@
+ //付款修改订单状态
+    router.put('/order/:id', async (req, res) => {
+        const data = await Order.findByIdAndUpdate(req.params.id, {
+            $set: req.body
+        })
+        res.send(data);
+    })

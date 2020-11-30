@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-container style="height:100%; border: 1px solid #eee">
+    <el-container style="height: 100%; border: 1px solid #eee">
       <el-aside class="aside" style="background-color: rgb(238, 241, 246)">
         <el-menu router>
           <el-submenu index="1">
@@ -43,6 +43,16 @@
               <el-menu-item index="/users/list">用户列表</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
+          <el-submenu index="5">
+            <template slot="title">
+              <i class="el-icon-magic-stick"></i>订单管理
+            </template>
+            <el-menu-item-group>
+              <template slot="title">订单</template>
+              <el-menu-item index="/orders/list">订单</el-menu-item>
+              <el-menu-item index="/orders/edit">订单管理</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
         </el-menu>
       </el-aside>
 
@@ -56,7 +66,7 @@
               <el-dropdown-item>删除</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <router-link to="/login" tag="span">{{user.username}}</router-link>
+          <router-link to="/login" tag="span">{{ user.username }}</router-link>
         </el-header>
         <el-main>
           <router-view :key="$route.path" />
@@ -84,7 +94,7 @@ export default {
 <style scoped>
 @media screen and (max-width: 500px) {
   .aside {
-    width: 150px!important;
+    width: 150px !important;
   }
 }
 .aside {

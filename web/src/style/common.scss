@@ -1,93 +1,135 @@
-body,div,ul,li,form,h1,p,img,input,button,h2,h3,h4,h5{
+body,
+div,
+ul,
+li,
+form,
+h1,
+p,
+img,
+input,
+button,
+h2,
+h3,
+h4,
+h5 {
     margin: 0;
     padding: 0;
 }
-html{
-    font:14px/1.5 Helvetica Neue,Helvetica,Arial,
-    Microsoft Yahei,Hiragino Sans GB,Heiti SC,
-    WenQuanYi Micro Hei,sans-serif
+html {
+    font: 14px/1.5 Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei,
+        sans-serif;
 }
-.p-l-10{
+.p-l-10 {
     padding-left: 10px;
 }
-.text-left{
+.text-left {
     text-align: left;
 }
-*{
+body,
+div,
+ul,
+li,
+form,
+h1,
+p,
+img,
+input,
+button,
+h2,
+h3,
+h4,
+h5,
+h6 {
     box-sizing: border-box;
 }
-$left-width:235;
-$max-width:1226;
-$paimary-color:#ff6700;
-$text-color:#fff;
-$bg-color:#5f5750;
-$main-color:#f5f5f5;
-.border-bootom{
-    border-bottom: 1px solid rgba( #ccc, 0.5);
+$left-width: 235;
+$max-width: 1226;
+$paimary-color: #ff6700;
+$text-color: #fff;
+$bg-color: #5f5750;
+$main-color: #f5f5f5;
+.border-bootom {
+    border-bottom: 1px solid rgba(#ccc, 0.5);
 }
-.rule-box{
-    width: $max-width * 1px ;
+.rule-box {
+    width: $max-width * 1px;
     margin: auto;
 }
-.type-none{
+.type-none {
     list-style: none;
 }
-.paimary-color{
-    color:$paimary-color
+.paimary-color {
+    color: $paimary-color;
 }
-.nav{
+.nav {
     display: flex;
 }
-.color-666{
+.color-666 {
     color: #666 !important;
 }
-.color-primary{
+.color-primary {
     color: #ff6700;
 }
-.flex-wrap{
+.flex-wrap {
     flex-wrap: wrap !important;
 }
-.align-start{
+.align-start {
     align-items: flex-start;
 }
-.border-no{
+.border-no {
     border: none !important;
 }
-.bg-gary{
+.bg-gary {
     background-color: #f5f5f5 !important;
 }
-.bg-white{
+.bg-white {
     background: white;
 }
-.align-bewtten{
+.align-bewtten {
     align-content: space-between;
 }
-.overflow-x{
+.overflow-x {
     overflow-y: hidden;
 }
-.bg-black{
+.bg-black {
     background: #333;
 }
-.bg-white{
+.bg-white {
     background: white;
 }
-.box_shadow{
+.box_shadow {
     transition: 0.3s linear;
     &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
     }
-  }
-.m-t5{
+}
+.m-t5 {
     margin-top: 10px;
 }
-.ds-flex{
+.ds-flex {
     display: flex;
 }
-.over{
+.over {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     padding: 0 10px;
 }
 
+.container {
+    .content {
+        text-align: center;
+        background: white;
+        margin-bottom: 20px;
+        & > p {
+            text-align: center;
+            max-width: 90%;
+            margin: auto;
+        }
+        img {
+            max-width: 100%;
+        }
+    }
+}

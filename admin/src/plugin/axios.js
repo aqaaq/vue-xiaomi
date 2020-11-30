@@ -2,10 +2,23 @@ import axios from 'axios';
 import Vue from 'vue';
 import router from '../router/index';
 import store from '../store/index';
+
+// 开关
+// ;
+
+var baseURL,
+    backend;
+if (process.env.NODE_ENV === "production") {
+    backend = '/upload';
+    baseURL = '/admin';
+} else {
+    baseURL = 'http://localhost:3000/admin/';
+    backend = 'http://localhost:3000/admin/upload';
+}
+Vue.prototype.$backend = backend;
 const http = axios.create({
-    baseURL: 'http://localhost:3000/admin/',
-    //baseURL:'/admin',
-    timeout: 5000,
+    baseURL,
+    timeout: 8000,
 });
 http.interceptors.request.use((config) => {
     // console.log(store.state.token)
@@ -18,14 +31,15 @@ http.interceptors.request.use((config) => {
     return Promise.reject(err)
 })
 http.interceptors.response.use(function (res) {
-    console.log(res)
-    res.data.status = res.status;
+    if (typeof res.data === 'object') {
+        res.data.status = res.status;
+    }
+
     return res.data
 }, function (err) {
     //console.log(err.response.status)
     //后端是否发送错误消息
-   
-    if(!err.response){return console.log(err)}
+    if (!err.response) { return console.log(err) }
     var message = err.response.data.message
     message = message ?
         message : 'server err'

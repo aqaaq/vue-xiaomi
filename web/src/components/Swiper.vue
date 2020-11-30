@@ -1,32 +1,36 @@
 <template>
   <div class="_main" v-if="imgList">
+    <i class="iconfont icon-tubiaozhizuomoban left controller"
+    :style="{left:left?left+'px':0}"
+     @click="min"></i>
+    <i class="iconfont icon-you right controller" @click="add"></i>
     <!-- swiper -->
     <router-link
-    tag="img"
-      :to="item.url?item.url:''"
-      v-for="(item,index) in imgList"
+      tag="img"
+      :to="item.url ? item.url : ''"
+      v-for="(item, index) in imgList"
       :key="index"
       v-lazy="item.image"
-      :class="{show:activeId===index,img:true}"
+      :class="{ show: activeId === index, img: true }"
     ></router-link>
     <!-- slider-btn -->
-    <div v-if="imgList.length>1">
-    <span v-if="form==='aircle'">
-      <i
-        @click="activeId=i-1"
-        :class="{circle:true,active:activeId===i-1,common:true}"
-        v-for="i in imgList.length"
-        :key="i"
-      ></i>
-    </span>
-    <span class="center" v-else>
-      <i
-        @click="activeId=i-1"
-        :class="{rectangle:true,active01:activeId===i-1}"
-        v-for="i in imgList.length"
-        :key="i"
-      ></i>
-    </span>
+    <div v-if="imgList.length > 1">
+      <span v-if="form === 'aircle'">
+        <i
+          @click="activeId = i - 1"
+          :class="{ circle: true, active: activeId === i - 1, common: true }"
+          v-for="i in imgList.length"
+          :key="i"
+        ></i>
+      </span>
+      <span class="center" v-else>
+        <i
+          @click="activeId = i - 1"
+          :class="{ rectangle: true, active01: activeId === i - 1 }"
+          v-for="i in imgList.length"
+          :key="i"
+        ></i>
+      </span>
     </div>
   </div>
 </template>
@@ -37,6 +41,7 @@ export default {
     open: { type: Boolean, default: false },
     timeout: { type: Number, default: () => 3000 },
     form: { type: String, default: "aircle" },
+    left:{type:Number}
   },
   data() {
     return {
@@ -56,6 +61,20 @@ export default {
         }, this.timeout);
       } else {
         return false;
+      }
+    },
+    add() {
+      if (this.activeId === this.imgList.length - 1) {
+        this.activeId = 0;
+      } else {
+        this.activeId++;
+      }
+    },
+    min() {
+      if (this.activeId === 0) {
+        this.activeId = this.imgList.length - 1;
+      } else {
+        this.activeId--;
       }
     },
   },
@@ -83,6 +102,22 @@ export default {
   height: 100%;
   width: 100%;
   position: relative;
+  overflow: hidden;
+  .controller:hover {
+    background: rgba($color: #000000, $alpha: 0.3);
+  }
+  .controller {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 40px;
+    z-index: 20;
+    color: white;
+    cursor: pointer;
+  }
+  .right {
+    right: 0;
+  }
   & img {
     position: absolute;
     height: 100%;

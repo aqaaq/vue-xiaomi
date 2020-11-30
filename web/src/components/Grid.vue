@@ -5,16 +5,19 @@
     </div>
     <!-- 长条logo -->
     <div class="header">
-      <span class="title">{{title}}</span>
-      <p v-if="arr.length>0">
+      <span class="title">{{ title }}</span>
+      <p v-if="arr.length > 0">
         <span
-          @mouseover="index=key"
-          :class="{active:index===key}"
-          v-for="(item,key) in arr"
+          @mouseover="index = key"
+          :class="{ active: index === key }"
+          v-for="(item, key) in arr"
           :key="key"
-        >{{item.name}}</span>
+          >{{ item.name }}</span
+        >
       </p>
     </div>
+
+    <!-- 左侧盒子 -->
     <div class="box">
       <div class="left">
         <slot name="left"></slot>
@@ -24,13 +27,13 @@
           tag="div"
           :to="`/home/details/${i._id}`"
           class="right_box _box box_shadow"
-          v-for="(i,key) in currVal.slice(0,7)"
+          v-for="(i, key) in currVal.slice(0, 7)"
           :key="key"
         >
           <img v-lazy="i.icon" />
-          <p class="name over">{{i.name}}</p>
-          <p class="info over">{{i.desc}}</p>
-          <p class="price">{{i.version[0].size[0].price}}元</p>
+          <p class="name over">{{ i.name }}</p>
+          <p class="info over">{{ i.desc }}</p>
+          <p class="price">{{ i.version[0].size[0].price }}元</p>
         </router-link>
         <div class="right_box bg-gary _last">
           <router-link
@@ -40,22 +43,26 @@
             v-if="currVal[7]"
           >
             <div>
-              <p class="naem">{{currVal[7].name}}</p>
-              <span>{{currVal[7].version[0].size[0].price}}</span>
+              <p class="naem">{{ currVal[7].name }}</p>
+              <span>{{ currVal[7].version[0].size[0].price }}</span>
             </div>
             <div>
               <img v-lazy="currVal[7].icon" />
             </div>
           </router-link>
-          <div class="last box_shadow">
+          <router-link
+            tag="div"
+            class="last box_shadow"
+            :to="`all/goods?keywords=${keywords}`"
+          >
             <div v-if="arr[0]">
               <p>浏览更多</p>
-              <span>{{arr[index].name}}</span>
+              <span>{{ arr[index].name }}</span>
             </div>
             <div>
               <i class="iconfont icon-ArrowCircleRight"></i>
             </div>
-          </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -75,9 +82,17 @@ export default {
   computed: {
     currVal() {
       if (this.arr.length > 0) {
+        console.log(this.arr[this.index]);
         return this.arr[this.index].newList;
       }
       return [];
+    },
+    keywords() {
+      if (!this.arr[this.index]) {
+        return;
+      } else {
+        return this.arr[this.index].name;
+      }
     },
   },
 };
@@ -141,11 +156,11 @@ export default {
 .right {
   flex-grow: 1;
   display: grid;
-  display: -ms-grid;
-  -ms-grid-columns: 1fr 1fr 1fr 1fr;
-  -ms-grid-rows: 1fr 1fr;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(4, 1fr);
+  display: -ms-grid;
+  -ms-grid-columns: 200px 200px 200px 200px;
+  -ms-grid-rows: 500px 500px;
 }
 ._box {
   width: $left-width * 1px;

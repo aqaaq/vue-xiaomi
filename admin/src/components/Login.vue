@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     async save() {
-      const res = await this.$http.post("/test/login", this.model);
+      const res = await this.$http.post("/web/login", this.model);
       if (res) {
         this.$message.success(res.message);
         this.$store.commit("assignment", res.token);

@@ -9,18 +9,21 @@ import './style/common.css';
 Vue.use(ElementUI);
 import http from './plugin/axios.js';
 Vue.prototype.$http = http;
+
+
+// echarts
+
 // Vue.prototype.$store = store,
 
 //混入 图片上传头
-  Vue.mixin({
-    data() {
-      return {
-        //backend: '/admin/upload',                     //生产环境
-         backend:'http://localhost:3000/admin/upload',  //开发环境
-      }
-
-    }
-  })
+// Vue.mixin({
+//   data() {
+//     return {
+//       // backend: '/admin/upload',                     //生产环境
+//     backend: 'http://localhost:3000/admin/upload',  //开发环境
+//     }
+//   }
+// })
 new Vue({
   router,
   store,

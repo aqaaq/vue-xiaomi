@@ -18,7 +18,7 @@
           <el-form-item label="图片">
             <el-upload
               class="avatar-uploader"
-              :action="backend"
+              :action="$backend"
               :show-file-list="false"
               :on-success="success(item)"
             >
