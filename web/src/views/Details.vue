@@ -1,7 +1,7 @@
 <template>
-  <div class="container" v-if="model.name">
+  <div class="container" >
     <div class="main">
-      <div class="adsorb">
+      <div class="adsorb" v-if="model.name">
         <div class="goods">
           <span class="title">{{ model.name }}</span
           >|
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div style="background:white">
-      <div class="goods_info">
+      <div class="goods_info" v-if="model.name">
         <!-- 图片swiper -->
         <div class="left">
           <swiper :imgList="currImg" :open="true" form="1" />
@@ -193,6 +193,7 @@ export default {
 .container {
   border: 1px solid #ccc;
   background: $main-color;
+  min-height: 500px;
 }
 .main {
   box-shadow: 0px 8px 13px rgba(0, 0, 0, 0.2);

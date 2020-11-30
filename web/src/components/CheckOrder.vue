@@ -115,7 +115,7 @@
             </el-select>
           </div>
           <div class="info">
-            <textarea class="info_" v-model="last" placeholder="详细地址" />
+            <input class="info_" v-model="last" placeholder="详细地址" >
           </div>
           <div class="info">
             <input class="info_ height" v-model="info" placeholder="标签" />
