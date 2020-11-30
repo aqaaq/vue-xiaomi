@@ -26,7 +26,9 @@ app.use('/upload/', express.static(__dirname + '/upload'))
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
-app.set('private', 'abc');
+
+//jwt key
+
 
 
 require('./router')(app)
