@@ -4,7 +4,7 @@
 
 
 ### 说明
->  该项目前后端分离，模仿小米官网(不兼容IE)。
+>  该项目前后端分离，模仿小米官网(暂时不兼容IE)。
 
 >  该项使用了 Node.js(Express) + Vue.js 全家桶 + Mongodb + Axios + Element ui + Sass 。
 
@@ -15,6 +15,7 @@
  账号:admin 密码:123
 
  **新手上路，代码有些粗糙** 。
+
 ### 项目运行(需要安装mongodb，先将server文件夹中的 dump数据库 导入本地数据库)。
 1. git clone 
 2. cd server
