@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //jwt key
-
+app.set('private','abc');
 
 
 require('./router')(app)
