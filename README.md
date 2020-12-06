@@ -4,9 +4,9 @@
 
 
 ### 说明
->  该项目前后端分离，模仿小米官网(暂时不兼容IE)。
+>  前后端分离，模仿小米官网(暂时不兼容IE)。
 
->  该项使用了 Node.js(Express) + Vue.js 全家桶 + Mongodb + Axios + Element ui + Sass 。
+>  Node.js(Express) + Vue.js 全家桶 + Mongodb + Axios + Element ui + Sass 。
 
 >  实现了 小米官网首页 ，购物车页面 ，我的订单，确认订单 ，订单详情，简单的支付页面，登录，注册页面。
 
@@ -17,20 +17,7 @@
  **新手上路，代码有些粗糙** 。
 
 ### 项目运行(需要安装mongodb，先将server文件夹中的 dump数据库 导入本地数据库)。
-1. git clone 
-2. cd server
-3. npm install
-4. npm run serve
-5. cd ..
-6. cd web
-7. npm install
-8. npm run serve
-9. cd ..
-10. cd admin
-11. npm install
-12. npm run serve
 
-浏览器打开 localhost:8080 localhost:8081
 ### 页面截图
 ![首页](https://images.gitee.com/uploads/images/2020/0919/121503_a4281112_8069051.png "屏幕截图.png")
 ![商品列表](https://images.gitee.com/uploads/images/2020/0919/121559_9cbda7eb_8069051.png "屏幕截图.png")
